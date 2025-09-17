@@ -1,6 +1,0 @@
-# Ignore Jupyter notebooks in all subfolders
-*.ipynb
-
-# Ignore virtual environments
-venv/
-
