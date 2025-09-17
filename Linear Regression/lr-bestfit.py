@@ -16,7 +16,7 @@
 
 import numpy as np 
 import matplotlib.pyplot as plt 
-import seaborn as sns 
+
 
 
 # Sample data points (x: independent, y: dependent)
@@ -56,10 +56,5 @@ def predict_values(x_value,m,b):
 x_value=float(input("Enter the value for x: "))
 y_predicted_value=predict_values(x_value,m,b)
 print(f"For x={x_value} , y={y_predicted_value}")
-
-
-
-
-
 
 
