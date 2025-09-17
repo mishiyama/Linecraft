@@ -16,7 +16,7 @@
 
 import numpy as np 
 
-# Data
+# Data housearea , bedroom number, prices 
 X = np.array([
     [2104, 3],
     [1600, 3],
