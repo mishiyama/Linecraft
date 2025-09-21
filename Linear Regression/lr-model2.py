@@ -55,6 +55,8 @@ print("Intercept: ",regression.intercept_)
 y_pred_train = regression.predict(X_train)
 y_pred_test = regression.predict(X_test)
 
+
+#Performance metrics 
 print("Train R² Score:", r2_score(y_train, y_pred_train))
 print("Test R² Score:", r2_score(y_test, y_pred_test))
 print("MAE:", mean_absolute_error(y_test, y_pred_test))
