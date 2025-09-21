@@ -85,6 +85,16 @@ plt.ylabel("Feature")
 plt.grid(True)
 plt.show()
 
+
+#Distribution of Actual and Predicted prices ( gives insight of model if its overfitting and underfitting)
+plt.figure(figsize=(10, 5))
+sns.histplot(y_test, color='blue', label='Actual', kde=True)
+sns.histplot(y_pred_test, color='orange', label='Predicted', kde=True)
+plt.legend()
+plt.title("Distribution: Actual vs Predicted Prices")
+plt.xlabel("Price (USD)")
+plt.show()
+
 # Function to predict price for new data
 def predict_new_price():
     print("\n### Enter New House Details ###")
