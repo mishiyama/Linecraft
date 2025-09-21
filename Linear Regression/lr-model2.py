@@ -22,7 +22,7 @@
 import pandas as pd
 
 import matplotlib.pyplot as plt
-
+import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -68,6 +68,22 @@ plt.title("Actual vs Predicted Prices")
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')  # Diagonal line
 plt.show()
 
+
+#Correlation Heatmap ( helps to identify strong predictors)
+plt.figure(figsize=(10, 6))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+
+
+#Feature Importance / Coefficent Magnitudes (shows which features have most impact on the predicted price)
+coefficients = pd.Series(regression.coef_, index=X.columns)
+coefficients.sort_values().plot(kind='barh', figsize=(8,5))
+plt.title("Feature Importance (Linear Coefficients)")
+plt.xlabel("Coefficient Value")
+plt.ylabel("Feature")
+plt.grid(True)
+plt.show()
 
 # Function to predict price for new data
 def predict_new_price():
