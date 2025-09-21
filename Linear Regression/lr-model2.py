@@ -20,9 +20,9 @@
 # Importing required dependencies
 
 import pandas as pd
-import numpy as np
+
 import matplotlib.pyplot as plt
-import statsmodels.api as sm
+
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -30,10 +30,10 @@ from sklearn.preprocessing import StandardScaler
 
 #To read the data from CSV file
 df=pd.read_csv('realestate_data.csv')
-df.drop(columns=['House ID'])
+df.drop(columns=['House ID'],inplace=True)
 
-#Assign indepe ndent and dependent features
-X =df.iloc[:,:-1] 
+#Assign independent and dependent features
+X = df.drop(columns=['Price (USD)'])  # All columns except target
 y=df['Price (USD)']
 
 #Test-Train split
@@ -43,7 +43,7 @@ X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.25,random_state=4
 #Standardization 
 scaler=StandardScaler()                    # z-score normalization (useful when features in data set have different units or scales) 
 X_train=scaler.fit_transform(X_train)
-X_test=scaler.transform(X_test)            # using transform in test data to prevent data leakage (no info regarding train data to be revealed to test)
+X_test=scaler.transform(X_test)           # using transform in test data to prevent data leakage (no info regarding train data to be revealed to test)
 
 #Applying Simple linear regression 
 regression=LinearRegression()
@@ -65,3 +65,32 @@ plt.ylabel("Predicted Prices")
 plt.title("Actual vs Predicted Prices")
 plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')  # Diagonal line
 plt.show()
+
+
+# Function to predict price for new data
+def predict_new_price():
+    print("\n### Enter New House Details ###")
+    try:
+        bedrooms = int(input("Enter number of bedrooms: "))
+        sqft = float(input("Enter square footage: "))
+        age = float(input("Enter age of house (years): "))
+        distance = float(input("Enter distance to city center (km): "))
+
+        # Create a DataFrame for the new input
+        new_data = pd.DataFrame([[bedrooms, sqft, age, distance]],
+                                columns=['Bedrooms', 'Square Footage', 'Age of House (years)', 'Distance to City Center (km)'])
+
+        # Standardize the new input using previously fitted scaler
+        new_data_scaled = scaler.transform(new_data)
+
+        # Predict using trained regression model
+        predicted_price = regression.predict(new_data_scaled)
+
+        print(f"\nPredicted House Price: ${predicted_price[0]:,.2f}")
+    except Exception as e:
+        print("Error in input:", e)
+
+# Call the function to test
+predict_new_price()
+
+
