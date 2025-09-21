@@ -14,6 +14,10 @@
 #     name: python3
 # ---
 
+
+##########IMPLEMENTATION OF SIMPLE LINEAR REGRESSION########## 
+
+
 # Importing required dependencies
 
 import pandas as pd
